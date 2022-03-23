@@ -10,6 +10,8 @@ import {
   NImage,
   NInput,
   NInputGroup,
+  NList,
+  NListItem,
 } from 'naive-ui'
 import App from './App.vue'
 import router from '@/router'
@@ -27,6 +29,8 @@ const naive = create({
     NImage,
     NInput,
     NInputGroup,
+    NList,
+    NListItem,
   ],
 })
 

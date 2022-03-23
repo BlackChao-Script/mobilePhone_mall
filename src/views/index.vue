@@ -1,6 +1,7 @@
 <script setup lang='ts'>
 import Header from '@/common/Header.vue'
 import Nav from '@/common/Nav.vue'
+import Sort from '@/components/index/Sort.vue'
 import Carousel from '@/common/Carousel.vue'
 </script>
 
@@ -9,14 +10,17 @@ import Carousel from '@/common/Carousel.vue'
   <Header />
   <!-- 导航栏 -->
   <Nav />
-  <!-- 轮播图 -->
-  <div class="main">
+  <!-- 分类与轮播图 -->
+  <div class="S_C_box main">
+    <Sort />
     <Carousel />
   </div>
 </template>
 
 <style scoped lang="less">
-.main {
+.S_C_box {
+  display: flex;
+  height: 500px;
   margin: 0 auto;
 }
 </style>

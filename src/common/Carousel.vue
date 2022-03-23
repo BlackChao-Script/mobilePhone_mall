@@ -15,15 +15,25 @@ onMounted(() => {
 </script>
 
 <template>
-  <n-carousel autoplay>
-    <img v-for="item in CarouselData" :key="item.id" class="carousel-img" :src="item.carousel_src" />
-  </n-carousel>
+  <div class="carouse">
+    <n-carousel autoplay draggable dot-type="line">
+      <img
+        v-for="item in CarouselData"
+        :key="item.id"
+        class="carousel-img"
+        :src="item.carousel_src"
+      />
+    </n-carousel>
+  </div>
 </template>
 
 <style scoped lang="less">
-.carousel-img {
-  width: 100%;
-  height: 550px;
-  object-fit: cover;
+.carouse {
+  width: 80%;
+  .carousel-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
 }
 </style>

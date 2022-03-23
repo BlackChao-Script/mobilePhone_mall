@@ -5,7 +5,7 @@ import { Cart } from '@vicons/ionicons5'
 
 <template>
   <div class="header">
-    <div class="header_content">
+    <div class="header_content main">
       <div class="content_left">
         <div>
           <a href="/index">商城</a>
@@ -57,7 +57,6 @@ import { Cart } from '@vicons/ionicons5'
   color: #b0b0b0;
   font-size: 14px;
   .header_content {
-    width: 1226px;
     height: 40px;
     display: flex;
     align-items: center;
