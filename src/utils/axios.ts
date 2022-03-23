@@ -76,5 +76,5 @@ export function request(url = '', params = {}, type = '') {
       .catch((err: any) => {
         reject(err)
       })
-  })
+  }) as any
 }
