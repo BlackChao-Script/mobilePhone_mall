@@ -20,7 +20,8 @@ import Carousel from '@/common/Carousel.vue'
 <style scoped lang="less">
 .S_C_box {
   display: flex;
-  height: 500px;
-  margin: 0 auto;
+  height: 450px;
+  margin: 10px auto;
+   box-shadow: -1px 1px 10px rgba(0, 0, 0, .4);
 }
 </style>

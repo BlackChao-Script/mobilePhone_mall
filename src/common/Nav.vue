@@ -32,8 +32,8 @@ import logo from '@/assets/img/logo.png'
     .box_input {
       flex: 1;
       display: flex;
-      margin-right: 100px;
       flex-direction: row-reverse;
+      justify-content: flex-start;
     }
   }
 }

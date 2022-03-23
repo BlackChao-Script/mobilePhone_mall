@@ -72,7 +72,7 @@ import { Cart } from '@vicons/ionicons5'
       }
     }
     .content_right {
-      flex: 0.5;
+      flex: 0.25;
       display: flex;
       align-items: center;
       height: 40px;
@@ -85,7 +85,7 @@ import { Cart } from '@vicons/ionicons5'
         align-items: center;
         width: 120px;
         height: 40px;
-        margin-left: 100px;
+        margin-left: 50px;
 
         color: #333333;
         background-color: #d3e4cd;
