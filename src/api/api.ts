@@ -8,3 +8,11 @@ export const GetCarousel = async (params: object) => {
 export const GetSort = async (params: object) => {
   return request('sort/getsort', params, 'GET')
 }
+// 获取商品列表接口
+export const GetGoods = async () => {
+  return request('goods', { pageNum: 1, pageSize: 8 }, 'GET')
+}
+// 获取分类详细接口
+export const GetSortdate = async (params: object) => {
+  return request(`/sort/getsortdata`, params, 'GET')
+}

@@ -12,6 +12,7 @@ import {
   NInputGroup,
   NList,
   NListItem,
+  NCard,
 } from 'naive-ui'
 import App from './App.vue'
 import router from '@/router'
@@ -31,6 +32,7 @@ const naive = create({
     NInputGroup,
     NList,
     NListItem,
+    NCard,
   ],
 })
 
