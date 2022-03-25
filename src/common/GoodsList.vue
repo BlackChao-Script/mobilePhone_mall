@@ -19,6 +19,10 @@ const { goodsData = {} } = defineProps({
           <div class="box_price">{{ item.goods_price }}￥</div>
           <div class="box_text">为你推荐</div>
         </div>
+        <div class="box_hover">
+          <p>mobilePhone商城</p>
+          <p>好物也不贵</p>
+        </div>
       </n-card>
     </div>
   </div>
@@ -36,10 +40,12 @@ const { goodsData = {} } = defineProps({
     flex-wrap: wrap;
     margin-top: 25px;
     .item_box {
+      position: relative;
       margin: 5px 6.1px;
       width: 24%;
       box-shadow: -1px -1px 10px rgba(0, 0, 0, 0.1);
       transition: 0.7s all;
+      overflow: hidden;
       .box_content {
         display: flex;
         align-items: center;
@@ -54,6 +60,26 @@ const { goodsData = {} } = defineProps({
         .box_text {
           color: #b0b0b0;
         }
+      }
+      .box_hover {
+        position: absolute;
+        bottom: -65px;
+        left: 0;
+        right: 0;
+        transition: 0.3s all;
+        width: 100%;
+        height: 60px;
+        background-color: #d3e4cd;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        p {
+          padding-top: 5px;
+          color: #fff;
+        }
+      }
+      &:hover .box_hover {
+        bottom: 0;
       }
       &:hover {
         box-shadow: -1px -1px 10px rgba(37, 10, 10, 0.4);
