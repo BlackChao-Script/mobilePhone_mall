@@ -1,27 +1,47 @@
 <script setup lang='ts'>
+import { GetGoods } from '@/api/api'
+import { recommendDataType } from '@/types'
 
-const { goodsData = {} } = defineProps({
-  goodsData: Object
+//! 数据
+const showNSpin = ref<Boolean>(false)
+// 推荐模块数据
+const recommendData = reactive<recommendDataType>({
+  title: '为你推荐',
+  dataMessage: {
+    name: '为你推荐',
+    hoverData: ['mobilePhone商城', '好物也不贵']
+  },
+  list: []
+})
+
+const getRecommendData = async () => {
+  const res = await GetGoods()
+  recommendData.list = res.result.list
+}
+
+onMounted(() => {
+  getRecommendData()
 })
 
 
 </script>
 <template>
   <div class="goodList">
-    <div class="goodList_title">{{ goodsData.title }}</div>
-    <div class="goodList_item">
-      <n-card class="item_box" :bordered="false" v-for="item in goodsData.list">
+    <div class="goodList_title">{{ recommendData.title }}</div>
+    <n-spin v-if="showNSpin" class="centent" size="large" />
+    <div class="goodList_item" v-else>
+      <n-card class="item_box" :bordered="false" v-for="item in recommendData.list">
         <template #cover>
           <img :src="item.goods_img" />
         </template>
         <div class="box_content">
           <div class="box_name">{{ item.goods_name }}</div>
           <div class="box_price">{{ item.goods_price }}￥</div>
-          <div class="box_text">为你推荐</div>
+          <div class="box_text">{{ recommendData.dataMessage.name }}</div>
         </div>
-        <div class="box_hover">
-          <p>mobilePhone商城</p>
-          <p>好物也不贵</p>
+        <div class="box_hover" v-if="recommendData.dataMessage.hoverData">
+          <p>{{ recommendData.dataMessage.hoverData[0] }}</p>
+          <p>{{ recommendData.dataMessage.hoverData[1] }}</p>
         </div>
       </n-card>
     </div>
@@ -67,7 +87,7 @@ const { goodsData = {} } = defineProps({
         left: 0;
         right: 0;
         transition: 0.3s all;
-        width: 100%;
+        // width: 100%;
         height: 60px;
         background-color: #d3e4cd;
         display: flex;

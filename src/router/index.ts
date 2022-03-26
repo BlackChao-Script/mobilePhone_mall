@@ -5,6 +5,26 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/index',
     component: () => import('@/views/index.vue'),
+    name: 'index',
+    meta: {
+      keepAlive: true,
+    },
+  },
+  {
+    path: '/login',
+    component: () => import('@/views/login.vue'),
+    name: 'login',
+    meta: {
+      keepAlive: false,
+    },
+  },
+  {
+    path: '/register',
+    component: () => import('@/views/register.vue'),
+    name: 'register',
+    meta: {
+      keepAlive: false,
+    },
   },
 ]
 // 工厂函数创建router实例

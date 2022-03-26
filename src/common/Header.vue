@@ -1,5 +1,8 @@
 <script setup lang='ts'>
 import { Cart } from '@vicons/ionicons5'
+import { useRouter } from 'vue-router'
+
+const router = useRouter()
 
 </script>
 
@@ -29,9 +32,9 @@ import { Cart } from '@vicons/ionicons5'
       </div>
       <div class="content_right">
         <div class="right_user">
-          <div>登录</div>
+          <div @click="() => { router.push('/login') }">登录</div>
           <n-divider vertical />
-          <div>注册</div>
+          <div @click="() => { router.push('/register') }">注册</div>
         </div>
         <div class="right_cart">
           <div class="cart_icon">
@@ -49,7 +52,6 @@ import { Cart } from '@vicons/ionicons5'
 <style scoped lang="less">
 .header {
   height: 40px;
-  width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -66,7 +68,6 @@ import { Cart } from '@vicons/ionicons5'
       align-items: center;
       height: 40px;
 
-      // background-color: red;
       div {
         margin-left: 10px;
       }
@@ -79,6 +80,7 @@ import { Cart } from '@vicons/ionicons5'
       .right_user {
         display: flex;
         align-items: center;
+        cursor: pointer;
       }
       .right_cart {
         display: flex;

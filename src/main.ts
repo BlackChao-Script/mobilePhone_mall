@@ -13,6 +13,7 @@ import {
   NList,
   NListItem,
   NCard,
+  NSpin,
 } from 'naive-ui'
 import App from './App.vue'
 import router from '@/router'
@@ -33,6 +34,7 @@ const naive = create({
     NList,
     NListItem,
     NCard,
+    NSpin,
   ],
 })
 

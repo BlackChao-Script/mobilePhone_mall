@@ -132,3 +132,8 @@ a {
   width: 1226px;
   margin: 10px auto;
 }
+.centent{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
