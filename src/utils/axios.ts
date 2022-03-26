@@ -69,8 +69,6 @@ export function request(url = '', params = {}, type = '') {
     // 处理返回
     promise
       .then((res: any) => {
-        if (res.message !== '') {
-        }
         resolve(res)
       })
       .catch((err: any) => {

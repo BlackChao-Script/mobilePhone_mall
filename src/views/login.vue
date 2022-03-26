@@ -1,11 +1,13 @@
 <script setup lang='ts'>
+import Form from '@/common/Form.vue'
+
+const type = ref<string>('登录')
 
 </script>
 
 <template>
-  登录
+  <n-message-provider>
+    <Form :type="type" />
+  </n-message-provider>
 </template>
 
-<style scoped lang="less">
-
-</style>

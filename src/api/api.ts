@@ -14,5 +14,13 @@ export const GetGoods = async () => {
 }
 // 获取分类详细接口
 export const GetSortdate = async (params: object) => {
-  return request(`/sort/getsortdata`, params, 'GET')
+  return request('sort/getsortdata', params, 'GET')
+}
+// 登录接口
+export const Login = async (params: object) => {
+  return request('user/login', params, 'POST')
+}
+// 注册接口
+export const Register = async (params: object) => {
+  return request('user/register', params, 'POST')
 }
