@@ -11,7 +11,6 @@ const props = defineProps({
   type: String
 })
 
-
 // 表单数据
 const formValue = reactive<any>({
   user_name: '',

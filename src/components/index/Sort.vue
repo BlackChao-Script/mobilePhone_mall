@@ -1,13 +1,18 @@
 <script setup lang='ts'>
+import { useRouter } from 'vue-router'
 import { ChevronForward } from '@vicons/ionicons5'
 import { GetSort } from '@/api/api'
 
+const router = useRouter()
 
 const sortData = ref<Array<any>>([])
 
 const GetsortData = async () => {
   const res = await GetSort({})
   sortData.value = res.result
+}
+const toSort = (id: number) => {
+  router.push(`/sort/${id}`)
 }
 
 onMounted(() => {
@@ -18,7 +23,7 @@ onMounted(() => {
 
 <template>
   <div class="sort">
-    <div class="box_item" v-for="item in sortData" :key="item.id">
+    <div class="box_item" v-for="item in sortData" :key="item.id" @click="toSort(item.id)">
       <div class="item_text">{{ item.sort_name }}</div>
       <div class="item_icon">
         <n-icon size="20">

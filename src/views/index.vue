@@ -3,7 +3,7 @@ import Header from '@/common/Header.vue'
 import Nav from '@/common/Nav.vue'
 import Sort from '@/components/index/Sort.vue'
 import Carousel from '@/common/Carousel.vue'
-import GoodList from '@/common/GoodsList.vue'
+import GoodList from '@/components/index/GoodsList.vue'
 import Footer from '@/common/Footer.vue'
 
 </script>

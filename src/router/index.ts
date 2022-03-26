@@ -26,6 +26,13 @@ const routes: Array<RouteRecordRaw> = [
       keepAlive: false,
     },
   },
+  {
+    path: '/sort/:id',
+    component: () => import('@/views/sortGoods.vue'),
+    meta: {
+      keepAlive: false,
+    },
+  },
 ]
 // 工厂函数创建router实例
 const router = createRouter({
