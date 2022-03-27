@@ -27,7 +27,7 @@ const routes: Array<RouteRecordRaw> = [
     },
   },
   {
-    path: '/sort/:id',
+    path: '/sort/:id/:name',
     component: () => import('@/views/sortGoods.vue'),
     meta: {
       keepAlive: false,

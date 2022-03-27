@@ -11,8 +11,8 @@ const GetsortData = async () => {
   const res = await GetSort({})
   sortData.value = res.result
 }
-const toSort = (id: number) => {
-  router.push(`/sort/${id}`)
+const toSort = (id: number, name: string) => {
+  router.push(`/sort/${id}/${name}`)
 }
 
 onMounted(() => {
@@ -23,7 +23,12 @@ onMounted(() => {
 
 <template>
   <div class="sort">
-    <div class="box_item" v-for="item in sortData" :key="item.id" @click="toSort(item.id)">
+    <div
+      class="box_item"
+      v-for="item in sortData"
+      :key="item.id"
+      @click="toSort(item.id, item.sort_name)"
+    >
       <div class="item_text">{{ item.sort_name }}</div>
       <div class="item_icon">
         <n-icon size="20">
