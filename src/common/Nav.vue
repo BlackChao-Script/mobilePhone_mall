@@ -9,12 +9,12 @@ import logo from '@/assets/img/logo.png'
       <div class="box_img">
         <a href="/index">
           <n-image height="80" width="130" preview-disabled :src="logo" />
+          <slot name="title"></slot>
           <div>mobilePhone商城</div>
         </a>
       </div>
       <div class="box_input">
-        <n-button type="primary" ghost>搜索</n-button>
-        <n-input :style="{ width: '40%' }" placeholder="搜索商品" />
+        <slot name="input"></slot>
       </div>
     </div>
   </div>

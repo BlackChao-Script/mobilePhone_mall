@@ -15,7 +15,11 @@ import {
   NCard,
   NSpin,
   NMessageProvider,
-  NDialogProvider,
+  NDropdown,
+  NDrawer,
+  NDrawerContent,
+  NTabs,
+  NTabPane,
 } from 'naive-ui'
 import App from './App.vue'
 import router from '@/router'
@@ -38,7 +42,11 @@ const naive = create({
     NCard,
     NSpin,
     NMessageProvider,
-    NDialogProvider,
+    NDropdown,
+    NDrawer,
+    NDrawerContent,
+    NTabs,
+    NTabPane,
   ],
 })
 

@@ -23,6 +23,7 @@ const clickSub = async () => {
     if (props.type == '登录') {
       const res = await Login(formValue)
       window.sessionStorage.setItem('token', res.result.token)
+      window.sessionStorage.setItem('name', formValue.user_name)
       router.push('/index')
       message.success('登录成功')
     }

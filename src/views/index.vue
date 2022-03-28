@@ -12,7 +12,12 @@ import Footer from '@/common/Footer.vue'
   <!-- 头部 -->
   <Header />
   <!-- 导航栏 -->
-  <Nav />
+  <Nav>
+    <template v-slot:input>
+      <n-button type="primary" ghost>搜索</n-button>
+      <n-input :style="{ width: '40%' }" placeholder="搜索商品" />
+    </template>
+  </Nav>
   <!-- 分类与轮播图 -->
   <div class="S_C_box main">
     <Sort />

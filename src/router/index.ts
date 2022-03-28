@@ -33,6 +33,13 @@ const routes: Array<RouteRecordRaw> = [
       keepAlive: false,
     },
   },
+  {
+    path: '/cart',
+    component: () => import('@/views/cart.vue'),
+    meta: {
+      keepAlive: false,
+    },
+  },
 ]
 // 工厂函数创建router实例
 const router = createRouter({

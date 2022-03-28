@@ -24,3 +24,11 @@ export const Login = async (params: object) => {
 export const Register = async (params: object) => {
   return request('user/register', params, 'POST')
 }
+// 获取用户信息接口
+export const getUserInfo = async (params: object) => {
+  return request('user/userinfo', params, 'GET')
+}
+// 获取订单列表
+export const getOrderist = async (params: object) => {
+  return request('order/user', params, 'GET')
+}

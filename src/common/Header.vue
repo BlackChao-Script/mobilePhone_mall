@@ -1,8 +1,60 @@
 <script setup lang='ts'>
-import { Cart } from '@vicons/ionicons5'
+import type { Component } from 'vue'
 import { useRouter } from 'vue-router'
+import { NIcon } from 'naive-ui'
+import {
+  Cart,
+  PersonCircleOutline as UserIcon,
+  LogOutOutline as LogoutIcon
+} from '@vicons/ionicons5'
+import Drawer from './Drawer.vue'
 
 const router = useRouter()
+const user = ref<Array<any>>([])
+const drawerRef = ref<any>(null)
+
+const renderIcon = (icon: Component) => {
+  return () => {
+    return h(NIcon, null, {
+      default: () => h(icon)
+    })
+  }
+}
+const UserInfoOptions = ref<Array<any>>([
+  {
+    label: '个人信息',
+    key: 'profile',
+    icon: renderIcon(UserIcon)
+  },
+  {
+    label: '退出登录',
+    key: 'next',
+    icon: renderIcon(LogoutIcon)
+
+  }
+])
+
+const handleSelect = (key: string | number) => {
+  if (key == 'profile') {
+    drawerRef.value.activeDrawer = true
+  }
+  if (key == 'next') {
+    window.sessionStorage.removeItem('token')
+    window.sessionStorage.removeItem('name')
+    router.push('/login')
+  }
+}
+
+const toCart = () => {
+}
+
+onActivated(() => {
+  if (window.sessionStorage.getItem('token') != null) {
+    user.value.push(window.sessionStorage.getItem('token'), window.sessionStorage.getItem('name'))
+    console.log('111')
+  }
+})
+
 
 </script>
 
@@ -31,10 +83,15 @@ const router = useRouter()
         </div>
       </div>
       <div class="content_right">
-        <div class="right_user">
+        <div class="right_user" v-if="!user[0]">
           <div @click="() => { router.push('/login') }">登录</div>
           <n-divider vertical />
           <div @click="() => { router.push('/register') }">注册</div>
+        </div>
+        <div class="right_userinfo" v-else>
+          <n-dropdown :options="UserInfoOptions" @select="handleSelect">
+            <n-button color="#d3e4cd">{{ user[1] }}</n-button>
+          </n-dropdown>
         </div>
         <div class="right_cart">
           <div class="cart_icon">
@@ -42,11 +99,12 @@ const router = useRouter()
               <Cart />
             </n-icon>
           </div>
-          <div class="cart_text">购物车()</div>
+          <div class="cart_text" @click="toCart">购物车( 0 )</div>
         </div>
       </div>
     </div>
   </div>
+  <Drawer ref="drawerRef" />
 </template>
 
 <style scoped lang="less">
@@ -97,6 +155,7 @@ const router = useRouter()
         .cart_text {
           margin-left: 5px;
           font-size: 13px;
+          cursor: pointer;
         }
       }
     }
