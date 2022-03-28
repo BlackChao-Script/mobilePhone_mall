@@ -24,7 +24,7 @@ const clickSub = async () => {
       const res = await Login(formValue)
       window.sessionStorage.setItem('token', res.result.token)
       window.sessionStorage.setItem('name', formValue.user_name)
-      router.push('/index')
+      router.go(-1)
       message.success('登录成功')
     }
     if (props.type == '注册') {

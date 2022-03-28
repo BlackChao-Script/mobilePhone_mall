@@ -48,7 +48,9 @@ onMounted(() => {
 </script>
 
 <template>
-  <Header />
+  <n-message-provider>
+    <Header />
+  </n-message-provider>
   <Nav />
   <div class="sort_name main">
     <div class="name">{{ sortName }}分类</div>

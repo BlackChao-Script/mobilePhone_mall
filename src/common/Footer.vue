@@ -54,7 +54,8 @@ const footerData = ref<any[]>([
 <style scoped lang="less">
 .footer {
   margin-top: 50px;
-  height: 200px;
+  height: auto;
+  min-height: 400px;
   background-color: #333333;
   .footer_box {
     display: flex;

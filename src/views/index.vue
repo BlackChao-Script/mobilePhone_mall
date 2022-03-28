@@ -10,7 +10,9 @@ import Footer from '@/common/Footer.vue'
 
 <template>
   <!-- 头部 -->
-  <Header />
+  <n-message-provider>
+    <Header />
+  </n-message-provider>
   <!-- 导航栏 -->
   <Nav>
     <template v-slot:input>

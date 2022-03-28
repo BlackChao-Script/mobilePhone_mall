@@ -7,9 +7,12 @@ import {
   PersonCircleOutline as UserIcon,
   LogOutOutline as LogoutIcon
 } from '@vicons/ionicons5'
+import { useMessage } from 'naive-ui'
 import Drawer from './Drawer.vue'
 
 const router = useRouter()
+const message = useMessage()
+
 const user = ref<Array<any>>([])
 const drawerRef = ref<any>(null)
 
@@ -41,19 +44,30 @@ const handleSelect = (key: string | number) => {
   if (key == 'next') {
     window.sessionStorage.removeItem('token')
     window.sessionStorage.removeItem('name')
+    user.value = []
     router.push('/login')
   }
 }
 
 const toCart = () => {
+  if (window.sessionStorage.getItem('token') != null) {
+    router.push('/cart')
+  } else {
+    message.info('请先登录')
+  }
 }
 
 onActivated(() => {
   if (window.sessionStorage.getItem('token') != null) {
     user.value.push(window.sessionStorage.getItem('token'), window.sessionStorage.getItem('name'))
-    console.log('111')
   }
 })
+onMounted(() => {
+  if (window.sessionStorage.getItem('token') != null) {
+    user.value.push(window.sessionStorage.getItem('token'), window.sessionStorage.getItem('name'))
+  }
+})
+
 
 
 </script>
