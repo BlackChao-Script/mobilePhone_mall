@@ -14,7 +14,10 @@ import logo from '@/assets/img/logo.png'
         </a>
       </div>
       <div class="box_input">
-        <slot name="input"></slot>
+        <slot name="input">
+          <n-button type="primary" ghost>搜索</n-button>
+          <n-input :style="{ width: '40%' }" placeholder="搜索商品" />
+        </slot>
       </div>
     </div>
   </div>

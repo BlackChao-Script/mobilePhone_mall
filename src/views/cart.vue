@@ -1,6 +1,11 @@
 <script setup lang='ts'>
+import { useRouter } from 'vue-router'
 import Nav from '@/common/Nav.vue'
 import Footer from '@/common/Footer.vue'
+
+const router = useRouter()
+
+const cartData = ref<Array<any>>([])
 
 </script>
 
@@ -21,7 +26,7 @@ import Footer from '@/common/Footer.vue'
     </div>
     <div class="box_operation">
       <div class="operation_left">
-        <div class="left_a">继续购物</div>
+        <div class="left_a" @click="() => { router.push('/index') }">继续购物</div>
         <i class="left_i">|</i>
         <div class="left_b">
           共
@@ -32,9 +37,9 @@ import Footer from '@/common/Footer.vue'
       <div class="operation_right">
         <div class="right_price">
           合计(不含运费)：
-          <span style="font-size: 20px;">0.00元</span>
+          <span style="font-size: 20px; color: #d3e4cd;">0.00元</span>
         </div>
-        <div class="right_button">去结算</div>
+        <div class="right_button" :class="{ color: cartData.length == 0 }">去结算</div>
       </div>
     </div>
   </div>
@@ -72,6 +77,9 @@ import Footer from '@/common/Footer.vue'
     margin-left: 10px;
     .left_a {
       cursor: pointer;
+      &:hover {
+        color: #d3e4cd;
+      }
     }
     .left_i {
       margin: 0 10px;
@@ -84,7 +92,6 @@ import Footer from '@/common/Footer.vue'
     height: 100%;
     align-items: center;
     .right_price {
-      color: #d3e4cd;
       font-weight: 700;
     }
     .right_button {
@@ -103,5 +110,8 @@ import Footer from '@/common/Footer.vue'
       }
     }
   }
+}
+.color {
+  background-color: #aeadb2 !important;
 }
 </style>

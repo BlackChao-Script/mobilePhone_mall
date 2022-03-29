@@ -1,10 +1,13 @@
 <script setup lang='ts'>
+import { useRouter } from 'vue-router'
+import { useMessage } from 'naive-ui'
 import { GetGoods } from '@/api/api'
 import { recommendDataType } from '@/types'
 
-//! 数据
+const router = useRouter()
+const message = useMessage()
+
 const showNSpin = ref<Boolean>(false)
-// 推荐模块数据
 const recommendData = reactive<recommendDataType>({
   title: '为你推荐',
   dataMessage: {
@@ -18,6 +21,13 @@ const getRecommendData = async () => {
   const res = await GetGoods()
   recommendData.list = res.result.list
 }
+const toGoodsDet = (id: number) => {
+  if (window.sessionStorage.getItem('token') != null) {
+    router.push(`/goodsdet/${id}`)
+  } else {
+    message.info('请先登录')
+  }
+}
 
 onMounted(() => {
   getRecommendData()
@@ -30,7 +40,13 @@ onMounted(() => {
     <div class="goodList_title">{{ recommendData.title }}</div>
     <n-spin v-if="showNSpin" class="centent" size="large" />
     <div class="goodList_item" v-else>
-      <n-card class="item_box" :bordered="false" v-for="item in recommendData.list">
+      <n-card
+        class="item_box"
+        :bordered="false"
+        v-for="item in recommendData.list"
+        :key="item.id"
+        @click="toGoodsDet(item.id)"
+      >
         <template #cover>
           <img :src="item.goods_img" />
         </template>

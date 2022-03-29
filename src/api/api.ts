@@ -32,3 +32,7 @@ export const getUserInfo = async (params: object) => {
 export const getOrderist = async (params: object) => {
   return request('order/user', params, 'GET')
 }
+// 获取商品详细数据
+export const getGoodsDet = (params: object) => {
+  return request('goods/getgoodsDet', params, 'GET')
+}

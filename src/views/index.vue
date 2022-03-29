@@ -14,12 +14,7 @@ import Footer from '@/common/Footer.vue'
     <Header />
   </n-message-provider>
   <!-- 导航栏 -->
-  <Nav>
-    <template v-slot:input>
-      <n-button type="primary" ghost>搜索</n-button>
-      <n-input :style="{ width: '40%' }" placeholder="搜索商品" />
-    </template>
-  </Nav>
+  <Nav></Nav>
   <!-- 分类与轮播图 -->
   <div class="S_C_box main">
     <Sort />
@@ -27,7 +22,9 @@ import Footer from '@/common/Footer.vue'
   </div>
   <!-- 商品分类推荐 -->
   <div class="main">
-    <GoodList />
+    <n-message-provider>
+      <GoodList />
+    </n-message-provider>
   </div>
   <!-- 底部 -->
   <Footer />

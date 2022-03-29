@@ -1,11 +1,12 @@
 <script setup lang='ts'>
-import { useRoute } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 import { GetSortdate } from '@/api/api'
 
 import Header from '@/common/Header.vue'
 import Nav from '@/common/Nav.vue'
 
 const route = useRoute()
+const router = useRouter()
 
 const sortGoodsList = ref<Array<any>>([])
 const sortName = ref<string>('')
@@ -35,6 +36,13 @@ const clickNavItem = (index: number) => {
     sortGoodsList.value.sort((a, b) => {
       return a.goods_price < b.goods_price ? 1 : -1
     })
+  }
+}
+const toGoodsDet = (id: number) => {
+  if (window.sessionStorage.getItem('token') != null) {
+    router.push(`/goodsdet/${id}`)
+  } else {
+    router.push('/login')
   }
 }
 
@@ -68,7 +76,13 @@ onMounted(() => {
   </div>
   <div class="sort_box main">
     <div class="goodList_item">
-      <n-card class="item_box" :bordered="false" v-for="item in sortGoodsList" :key="item.id">
+      <n-card
+        class="item_box"
+        :bordered="false"
+        v-for="item in sortGoodsList"
+        :key="item.id"
+        @click="toGoodsDet(item.id)"
+      >
         <template #cover>
           <img :src="item.goods_img" />
         </template>
