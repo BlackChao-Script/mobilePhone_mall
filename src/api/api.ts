@@ -36,3 +36,27 @@ export const getOrderist = async (params: object) => {
 export const getGoodsDet = (params: object) => {
   return request('goods/getgoodsDet', params, 'GET')
 }
+// 获取购物车列表
+export const getCartData = (params: object) => {
+  return request('cart', params, 'GET')
+}
+// 添加购物车
+export const addCart = (params: object) => {
+  return request('cart/addcart', params, 'POST')
+}
+// 更新购物车
+export const updateCart = (id: number, params: object) => {
+  return request(`cart/${id}`, params, 'PATCH')
+}
+// 删除购物车
+export const deleteCart = (id: number, params: object) => {
+  return request(`cart/${id}`, params, 'DELETE')
+}
+// 全选购物车
+export const selectAllCart = (params: object) => {
+  return request('cart/selectAll', params, 'POST')
+}
+// 取消全选购物车
+export const unselectAllCart = (params: object) => {
+  return request('cart/unselectAll', params, 'POST')
+}
