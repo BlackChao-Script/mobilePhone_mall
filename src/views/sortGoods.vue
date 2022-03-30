@@ -75,7 +75,10 @@ onMounted(() => {
     </div>
   </div>
   <div class="sort_box main">
-    <div class="goodList_item">
+    <div v-if="sortGoodsList.length == 0">
+      <n-empty size="huge" description="你什么也找不到"></n-empty>
+    </div>
+    <div class="goodList_item" v-else>
       <n-card
         class="item_box"
         :bordered="false"

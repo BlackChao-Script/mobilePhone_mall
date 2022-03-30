@@ -26,6 +26,7 @@ import {
   NEmpty,
   NCheckbox,
   NBackTop,
+  NNumberAnimation,
 } from 'naive-ui'
 
 import '@/style/base.css'
@@ -54,6 +55,7 @@ const naive = create({
     NEmpty,
     NCheckbox,
     NBackTop,
+    NNumberAnimation,
   ],
 })
 

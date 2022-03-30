@@ -4,18 +4,27 @@ import { request } from '@/utils/axios'
 export const GetCarousel = async (params: object) => {
   return request('carousel', params, 'GET')
 }
+//! 分类
 // 获取分列表接口
 export const GetSort = async (params: object) => {
   return request('sort/getsort', params, 'GET')
-}
-// 获取商品列表接口
-export const GetGoods = async () => {
-  return request('goods', { pageNum: 1, pageSize: 12 }, 'GET')
 }
 // 获取分类详细接口
 export const GetSortdate = async (params: object) => {
   return request('sort/getsortdata', params, 'GET')
 }
+
+//! 商品
+// 获取商品列表接口
+export const GetGoods = async () => {
+  return request('goods', { pageNum: 1, pageSize: 12 }, 'GET')
+}
+// 获取商品详细数据
+export const getGoodsDet = (params: object) => {
+  return request('goods/getgoodsDet', params, 'GET')
+}
+
+//! 用户
 // 登录接口
 export const Login = async (params: object) => {
   return request('user/login', params, 'POST')
@@ -28,14 +37,8 @@ export const Register = async (params: object) => {
 export const getUserInfo = async (params: object) => {
   return request('user/userinfo', params, 'GET')
 }
-// 获取订单列表
-export const getOrderist = async (params: object) => {
-  return request('order/user', params, 'GET')
-}
-// 获取商品详细数据
-export const getGoodsDet = (params: object) => {
-  return request('goods/getgoodsDet', params, 'GET')
-}
+
+//! 购物车
 // 获取购物车列表
 export const getCartData = (params: object) => {
   return request('cart', params, 'GET')
@@ -59,4 +62,14 @@ export const selectAllCart = (params: object) => {
 // 取消全选购物车
 export const unselectAllCart = (params: object) => {
   return request('cart/unselectAll', params, 'POST')
+}
+
+//! 订单
+// 获取订单列表
+export const getOrderist = async (params: object) => {
+  return request('order/user', params, 'GET')
+}
+// 提交订单
+export const SubmitOrder = async (params: object) => {
+  return request('order', params, 'POST')
 }

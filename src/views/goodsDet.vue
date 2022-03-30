@@ -2,7 +2,7 @@
 import { useRoute } from 'vue-router'
 import { useStore } from '@/store'
 import { getGoodsDet, addCart, getCartData } from '@/api/api'
-import { goodsDetDataType } from '@/types'
+import { goodsDetDataType, goodsInfoType } from '@/types'
 import Header from '@/common/Header.vue'
 import Nav from '@/common/Nav.vue'
 import Footer from '@/common/Footer.vue'
@@ -11,7 +11,7 @@ const route = useRoute()
 const store = useStore()
 
 const goodsDetData = ref<goodsDetDataType | any>({})
-const goods_info = ref<any>({})
+const goods_info = ref<goodsInfoType | any>({})
 const showNSpin = ref<Boolean>(true)
 
 const getGoodsDetData = async () => {

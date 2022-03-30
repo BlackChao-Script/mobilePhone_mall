@@ -16,8 +16,7 @@ const store = useStore()
 const message = useMessage()
 
 const user = ref<Array<any>>([])
-const drawerRef = ref<any>(null)
-const CartNum = ref<string>('')
+const drawerRef = ref<HTMLElement | any>(null)
 
 const renderIcon = (icon: Component) => {
   return () => {
@@ -61,8 +60,13 @@ const toCart = () => {
 }
 
 const getCartDataNum = async () => {
-  const res = await getCartData({})
-  store.cartNum = res.result.list.length
+  if (window.sessionStorage.getItem('token') != null) {
+    const res = await getCartData({})
+    store.cartNum = res.result.list.length
+  } else {
+    store.cartNum = 0
+  }
+
 }
 
 onActivated(() => {

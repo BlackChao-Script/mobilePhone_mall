@@ -13,24 +13,24 @@ import Footer from '@/common/Footer.vue'
 
 const router = useRouter()
 
-const cartData = ref<any>([])
-const selectBoolean = ref<boolean>(false)
+const cartData = ref<Array<any>>([])
+const selectBoolean = ref<Boolean>(false)
 
 const getCart = async () => {
   const res = await getCartData({})
   cartData.value = res.result.list
+  const selectBooleana: Boolean = cartData.value.every((value) => value.selected == true)
+  selectBooleana == true ? selectBoolean.value = true : selectBoolean.value = false
 }
-
 const delCart = async (id: number) => {
   await deleteCart(id, {})
   getCart()
 }
-
 const upCart = async (id: number) => {
-  const arr = cartData.value.find((value: any) => value.id == id)
-  let selected = arr.selected
+  const arr = cartData.value.find((value) => value.id == id)
+  let selected: boolean = arr.selected
   await updateCart(id, { selected })
-  const selectBooleana = cartData.value.every((value: any) => value.selected == true)
+  const selectBooleana: Boolean = cartData.value.every((value) => value.selected == true)
   selectBooleana == true ? selectBoolean.value = true : selectBoolean.value = false
   getCart()
 }
@@ -44,10 +44,21 @@ const unSelAllCart = async () => {
   selectBoolean.value = false
   getCart()
 }
+const toOrder = () => {
+  router.push('/order')
+}
+const addRedNum = async (id: number, type: string) => {
+  const arr = cartData.value.find((value) => value.id == id)
+  type == 'add' ? arr.number++ : arr.number--
+  let { number } = arr
+  console.log()
+  await updateCart(id, { number })
+  getCart()
+}
 
 const cartPrice = computed(() => {
-  let totalprice = 0
-  cartData.value.forEach((i: any) => {
+  let totalprice: number = 0
+  cartData.value.forEach((i) => {
     if (i.selected) {
       totalprice += i.number * i.goods_info.goods_price
     }
@@ -83,7 +94,11 @@ onActivated(() => {
           </div>
           <div class="item_name">{{ item.goods_info.goods_name }}</div>
           <div class="item_price">{{ item.goods_info.goods_price }} 元</div>
-          <div class="item_num">{{ item.number }}</div>
+          <div class="item_num">
+            <span class="num_i" @click="addRedNum(item.id, 'red')">-</span>
+            <span class="num_text">{{ item.number }}</span>
+            <span class="num_i" @click="addRedNum(item.id, 'add')">+</span>
+          </div>
           <div class="item_rem">
             <n-icon @click="delCart(item.id)" size="25">
               <Close />
@@ -111,10 +126,13 @@ onActivated(() => {
       </div>
       <div class="operation_right">
         <div class="right_price">
-          合计(不含运费)：
-          <span style="font-size: 20px; color: #d3e4cd;">{{ cartPrice }} 元</span>
+          <span style="color: #d3e4cd;">合计(不含运费)：</span>
+          <span style="font-size: 20px; ">
+            <n-number-animation ref="numberAnimationInstRef" :from="0" :to="cartPrice" />
+            <span style="margin-left: 10px;">元</span>
+          </span>
         </div>
-        <div class="right_button" :class="{ color: cartData.length == 0 }">去结算</div>
+        <div class="right_button" :class="{ color: cartData.length == 0 }" @click="toOrder">去结算</div>
       </div>
     </div>
   </div>
@@ -165,6 +183,19 @@ onActivated(() => {
       }
       .item_num {
         width: 20%;
+        display: flex;
+        justify-content: center;
+        .num_i {
+          font-size: 18px;
+          font-weight: 900;
+          &:hover {
+            cursor: pointer;
+            color: #d3e4cd;
+          }
+        }
+        .num_text {
+          margin: 0 20px;
+        }
       }
       .item_rem {
         width: 20%;

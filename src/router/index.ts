@@ -47,12 +47,20 @@ const routes: Array<RouteRecordRaw> = [
       keepAlive: false,
     },
   },
+  {
+    path: '/order',
+    component: () => import('@/views/order.vue'),
+    meta: {
+      keepAlive: true,
+    },
+  },
 ]
 // 工厂函数创建router实例
 const router = createRouter({
   history: createWebHistory(),
   routes,
 })
+// 进入新页面回到顶部
 router.afterEach((to, from, next) => {
   window.scrollTo(0, 0)
 })

@@ -1,10 +1,8 @@
-// 推荐模块数据数据类型
 export type recommendDataType = {
   title: string
   dataMessage: any
   list: Array<any>
 }
-// 商品数据详细数据类型
 export type goodsDetDataType = {
   goods_id: number
   id: number
@@ -12,4 +10,11 @@ export type goodsDetDataType = {
   promise: string
   rule: string
   title: string
+}
+export type goodsInfoType = {
+  createGoodsTime: string
+  goods_img: string
+  goods_name: string
+  goods_num: number
+  goods_price: number
 }
