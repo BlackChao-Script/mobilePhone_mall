@@ -1,4 +1,7 @@
 import { createApp } from 'vue'
+import { createPinia } from 'pinia'
+import App from './App.vue'
+import router from '@/router'
 import {
   create,
   NButton,
@@ -22,9 +25,8 @@ import {
   NTabPane,
   NEmpty,
   NCheckbox,
+  NBackTop,
 } from 'naive-ui'
-import App from './App.vue'
-import router from '@/router'
 
 import '@/style/base.css'
 
@@ -51,10 +53,12 @@ const naive = create({
     NTabPane,
     NEmpty,
     NCheckbox,
+    NBackTop,
   ],
 })
 
 const app = createApp(App)
 app.use(naive)
 app.use(router)
+app.use(createPinia())
 app.mount('#app')

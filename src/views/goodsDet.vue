@@ -1,21 +1,30 @@
 <script setup lang='ts'>
 import { useRoute } from 'vue-router'
-import { getGoodsDet } from '@/api/api'
+import { useStore } from '@/store'
+import { getGoodsDet, addCart, getCartData } from '@/api/api'
 import { goodsDetDataType } from '@/types'
 import Header from '@/common/Header.vue'
 import Nav from '@/common/Nav.vue'
 import Footer from '@/common/Footer.vue'
 
 const route = useRoute()
+const store = useStore()
 
 const goodsDetData = ref<goodsDetDataType | any>({})
 const goods_info = ref<any>({})
+const showNSpin = ref<Boolean>(true)
 
 const getGoodsDetData = async () => {
   const { id } = route.params
   const res = await getGoodsDet({ id })
   goodsDetData.value = res.result
   goods_info.value = goodsDetData.value.goods_info
+  showNSpin.value = false
+}
+const ClickAddCart = async (goods_id: number) => {
+  await addCart({ goods_id })
+  const res = await getCartData({})
+  store.cartNum = res.result.list.length
 }
 
 onMounted(() => {
@@ -33,32 +42,35 @@ onMounted(() => {
     <div class="main">商品详细</div>
   </div>
   <div class="goodsdet_box main">
-    <div class="box_img">
-      <img :src="goods_info.goods_img" />
-    </div>
-    <div class="box_content">
-      <div class="content_title">{{ goods_info.goods_name }}</div>
-      <div class="content_titlea">{{ goodsDetData.title }}</div>
-      <div class="content_price">{{ goods_info.goods_price }} 元</div>
-      <div class="content_button">
-        <div>立即选购</div>
-        <div>加入购物车</div>
+    <n-spin v-if="showNSpin" class="nSpin" size="large" />
+    <template v-else>
+      <div class="box_img">
+        <img :src="goods_info.goods_img" />
       </div>
-      <div class="content_foot">
-        <div class="foot_item">
-          <div class="item_name">承诺</div>
-          <div class="item_text">{{ goodsDetData.promise }}</div>
+      <div class="box_content">
+        <div class="content_title">{{ goods_info.goods_name }}</div>
+        <div class="content_titlea">{{ goodsDetData.title }}</div>
+        <div class="content_price">{{ goods_info.goods_price }} 元</div>
+        <div class="content_button">
+          <div>立即选购</div>
+          <div @click="ClickAddCart(goodsDetData.goods_id)">加入购物车</div>
         </div>
-        <div class="foot_item">
-          <div class="item_name">支付</div>
-          <div class="item_text">{{ goodsDetData.pay }}</div>
-        </div>
-        <div class="foot_item">
-          <div class="item_name">支持</div>
-          <div class="item_text">{{ goodsDetData.rule }}</div>
+        <div class="content_foot">
+          <div class="foot_item">
+            <div class="item_name">承诺</div>
+            <div class="item_text">{{ goodsDetData.promise }}</div>
+          </div>
+          <div class="foot_item">
+            <div class="item_name">支付</div>
+            <div class="item_text">{{ goodsDetData.pay }}</div>
+          </div>
+          <div class="foot_item">
+            <div class="item_name">支持</div>
+            <div class="item_text">{{ goodsDetData.rule }}</div>
+          </div>
         </div>
       </div>
-    </div>
+    </template>
   </div>
   <Footer />
 </template>
@@ -75,7 +87,11 @@ onMounted(() => {
 }
 .goodsdet_box {
   display: flex;
-  height: 500px;
+  height: auto;
+  min-height: 500px;
+  .nSpin {
+    width: 100%;
+  }
   .box_img {
     flex: 1;
     display: flex;

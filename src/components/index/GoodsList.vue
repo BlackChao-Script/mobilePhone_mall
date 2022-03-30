@@ -7,7 +7,7 @@ import { recommendDataType } from '@/types'
 const router = useRouter()
 const message = useMessage()
 
-const showNSpin = ref<Boolean>(false)
+const showNSpin = ref<Boolean>(true)
 const recommendData = reactive<recommendDataType>({
   title: '为你推荐',
   dataMessage: {
@@ -20,6 +20,7 @@ const recommendData = reactive<recommendDataType>({
 const getRecommendData = async () => {
   const res = await GetGoods()
   recommendData.list = res.result.list
+  showNSpin.value = false
 }
 const toGoodsDet = (id: number) => {
   if (window.sessionStorage.getItem('token') != null) {

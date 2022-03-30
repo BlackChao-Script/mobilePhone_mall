@@ -1,20 +1,23 @@
 <script setup lang='ts'>
 import type { Component } from 'vue'
 import { useRouter } from 'vue-router'
-import { NIcon } from 'naive-ui'
+import { useStore } from '@/store'
+import { NIcon, useMessage } from 'naive-ui'
 import {
   Cart,
   PersonCircleOutline as UserIcon,
   LogOutOutline as LogoutIcon
 } from '@vicons/ionicons5'
-import { useMessage } from 'naive-ui'
+import { getCartData } from '@/api/api'
 import Drawer from './Drawer.vue'
 
 const router = useRouter()
+const store = useStore()
 const message = useMessage()
 
 const user = ref<Array<any>>([])
 const drawerRef = ref<any>(null)
+const CartNum = ref<string>('')
 
 const renderIcon = (icon: Component) => {
   return () => {
@@ -57,15 +60,22 @@ const toCart = () => {
   }
 }
 
+const getCartDataNum = async () => {
+  const res = await getCartData({})
+  store.cartNum = res.result.list.length
+}
+
 onActivated(() => {
   if (window.sessionStorage.getItem('token') != null) {
     user.value.push(window.sessionStorage.getItem('token'), window.sessionStorage.getItem('name'))
   }
+  getCartDataNum()
 })
 onMounted(() => {
   if (window.sessionStorage.getItem('token') != null) {
     user.value.push(window.sessionStorage.getItem('token'), window.sessionStorage.getItem('name'))
   }
+  getCartDataNum()
 })
 
 
@@ -113,7 +123,7 @@ onMounted(() => {
               <Cart />
             </n-icon>
           </div>
-          <div class="cart_text" @click="toCart">购物车( 0 )</div>
+          <div class="cart_text" @click="toCart">购物车( {{ store.cartNum }} )</div>
         </div>
       </div>
     </div>

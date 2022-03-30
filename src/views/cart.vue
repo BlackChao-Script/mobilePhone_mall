@@ -13,25 +13,51 @@ import Footer from '@/common/Footer.vue'
 
 const router = useRouter()
 
-const cartData = ref<Array<any>>([])
-const totalPrice = ref<number>(0)
+const cartData = ref<any>([])
+const selectBoolean = ref<boolean>(false)
 
 const getCart = async () => {
   const res = await getCartData({})
   cartData.value = res.result.list
-  cartData.value.forEach((i) => {
-    totalPrice.value += i.number * i.goods_info.goods_price
-  })
 }
+
 const delCart = async (id: number) => {
   await deleteCart(id, {})
   getCart()
 }
 
-onMounted(() => {
+const upCart = async (id: number) => {
+  const arr = cartData.value.find((value: any) => value.id == id)
+  let selected = arr.selected
+  await updateCart(id, { selected })
+  const selectBooleana = cartData.value.every((value: any) => value.selected == true)
+  selectBooleana == true ? selectBoolean.value = true : selectBoolean.value = false
   getCart()
+}
+const selAllCart = async () => {
+  await selectAllCart({})
+  selectBoolean.value = true
+  getCart()
+}
+const unSelAllCart = async () => {
+  await unselectAllCart({})
+  selectBoolean.value = false
+  getCart()
+}
+
+const cartPrice = computed(() => {
+  let totalprice = 0
+  cartData.value.forEach((i: any) => {
+    if (i.selected) {
+      totalprice += i.number * i.goods_info.goods_price
+    }
+  })
+  return totalprice
 })
 
+onActivated(() => {
+  getCart()
+})
 </script>
 
 <template>
@@ -50,7 +76,7 @@ onMounted(() => {
       <div v-else class="cart_list">
         <div class="list_item" v-for="item in cartData" :key="item.id">
           <div class="item_choose">
-            <n-checkbox v-model:checked="item.selected"></n-checkbox>
+            <n-checkbox v-model:checked="item.selected" @click="upCart(item.id)"></n-checkbox>
           </div>
           <div class="item_img">
             <img :src="item.goods_info.goods_img" />
@@ -68,19 +94,25 @@ onMounted(() => {
     </div>
     <div class="box_operation">
       <div class="operation_left">
-        <n-button color="#d3e4cd" style="margin-right:20px;">全选</n-button>
+        <n-button
+          v-if="!selectBoolean"
+          color="#d3e4cd"
+          style="margin-right:20px;"
+          @click="selAllCart"
+        >全选</n-button>
+        <n-button v-else color="#d3e4cd" style="margin-right:20px;" @click="unSelAllCart">取消全选</n-button>
         <div class="left_a" @click="() => { router.push('/index') }">继续购物</div>
         <i class="left_i">|</i>
         <div class="left_b">
           共
-          <span style="color: #d3e4cd;">0</span>
+          <span style="color: #d3e4cd;">{{ cartData.length }}</span>
           件商品
         </div>
       </div>
       <div class="operation_right">
         <div class="right_price">
           合计(不含运费)：
-          <span style="font-size: 20px; color: #d3e4cd;">{{ totalPrice }} 元</span>
+          <span style="font-size: 20px; color: #d3e4cd;">{{ cartPrice }} 元</span>
         </div>
         <div class="right_button" :class="{ color: cartData.length == 0 }">去结算</div>
       </div>

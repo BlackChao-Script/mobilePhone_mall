@@ -37,7 +37,7 @@ const routes: Array<RouteRecordRaw> = [
     path: '/cart',
     component: () => import('@/views/cart.vue'),
     meta: {
-      keepAlive: false,
+      keepAlive: true,
     },
   },
   {
@@ -52,6 +52,9 @@ const routes: Array<RouteRecordRaw> = [
 const router = createRouter({
   history: createWebHistory(),
   routes,
+})
+router.afterEach((to, from, next) => {
+  window.scrollTo(0, 0)
 })
 
 export default router
