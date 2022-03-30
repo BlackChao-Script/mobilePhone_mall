@@ -82,3 +82,7 @@ export const getAddress = async (params: object) => {
 export const addAddress = async (params: object) => {
   return request('/address/addtoaddress', params, 'POST')
 }
+// 删除地址
+export const remAddress = async (id: number, params: object) => {
+  return request(`address/${id}`, params, 'DELETE')
+}

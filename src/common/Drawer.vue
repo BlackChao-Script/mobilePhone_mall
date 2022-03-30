@@ -1,5 +1,11 @@
 <script setup lang='ts'>
-import { getUserInfo, getAddress, getOrderist, addAddress } from '@/api/api'
+import {
+  getUserInfo,
+  getAddress,
+  getOrderist,
+  addAddress,
+  remAddress,
+} from '@/api/api'
 import { FormInst, FormRules, FormItemRule, useMessage } from 'naive-ui'
 
 const message = useMessage()
@@ -7,10 +13,10 @@ const message = useMessage()
 const activeDrawer = ref<Boolean | any>(false)
 const showAddAddress = ref<Boolean | any>(false)
 const userInfoData = ref<any>([])
-const addressData = ref<any>([])
+const addressData = ref<Array<any>>([])
 const orderData = ref<Array<any>>([])
 const AddressformRef = ref<FormInst | null>(null)
-const addressForm = reactive<any>({
+let addressForm = reactive<any>({
   consignee: '',
   phone: '',
   address: ''
@@ -79,6 +85,16 @@ const handleValidateClick = (e: MouseEvent) => {
     getData('address')
   })
 }
+const closAddressDrawer = () => {
+  for (const i in addressForm) {
+    addressForm[i] = ''
+  }
+}
+const remAddressItem = async (id: number) => {
+  await remAddress(id, {})
+  message.success('删除成功')
+  getData('address')
+}
 
 onActivated(() => {
   getData('userInfo')
@@ -113,6 +129,9 @@ defineExpose({
           <n-card v-for="item in addressData" :key="item.id" :title="item.address">
             <span style="margin-right: 20px; font-size: 20px;">{{ item.consignee }}</span>
             <span>{{ item.phone }}</span>
+            <template #action>
+              <n-button color="red" @click="remAddressItem(item.id)">删除</n-button>
+            </template>
           </n-card>
         </n-tab-pane>
         <n-tab-pane name="我的订单" tab="我的订单">
@@ -120,7 +139,7 @@ defineExpose({
         </n-tab-pane>
       </n-tabs>
     </n-drawer-content>
-    <n-drawer v-model:show="showAddAddress" :width="300">
+    <n-drawer v-model:show="showAddAddress" :width="300" @update:show="closAddressDrawer">
       <n-drawer-content title="添加地址">
         <n-form
           ref="AddressformRef"

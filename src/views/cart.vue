@@ -1,19 +1,17 @@
 <script setup lang='ts'>
 import { useRouter } from 'vue-router'
-import { useStore } from '@/store'
 import { Close } from '@vicons/ionicons5'
 import {
   getCartData,
   updateCart,
   deleteCart,
   selectAllCart,
-  unselectAllCart
+  unselectAllCart,
 } from '@/api/api'
 import Nav from '@/common/Nav.vue'
 import Footer from '@/common/Footer.vue'
 
 const router = useRouter()
-const store = useStore()
 
 const cartData = ref<Array<any>>([])
 const selectBoolean = ref<Boolean>(false)
@@ -65,8 +63,6 @@ const cartPrice = computed(() => {
   return totalprice
 })
 const toOrder = () => {
-  store.updateCartData(cartData.value)
-  store.updateCartPrice(cartPrice.value)
   router.push('/order')
 }
 onActivated(() => {
