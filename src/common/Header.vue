@@ -107,7 +107,7 @@ onMounted(() => {
         </div>
         <n-divider vertical />
         <div>
-          <a>我的订单</a>
+          <a style="cursor: pointer;">我的订单</a>
         </div>
       </div>
       <div class="content_right">
@@ -132,7 +132,9 @@ onMounted(() => {
       </div>
     </div>
   </div>
-  <Drawer ref="drawerRef" />
+  <n-message-provider>
+    <Drawer ref="drawerRef" />
+  </n-message-provider>
 </template>
 
 <style scoped lang="less">

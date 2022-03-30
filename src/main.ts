@@ -27,6 +27,11 @@ import {
   NCheckbox,
   NBackTop,
   NNumberAnimation,
+  NSteps,
+  NStep,
+  NForm,
+  NFormItem,
+  NSelect,
 } from 'naive-ui'
 
 import '@/style/base.css'
@@ -56,6 +61,11 @@ const naive = create({
     NCheckbox,
     NBackTop,
     NNumberAnimation,
+    NSteps,
+    NStep,
+    NForm,
+    NFormItem,
+    NSelect,
   ],
 })
 

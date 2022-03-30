@@ -1,5 +1,6 @@
 <script setup lang='ts'>
 import { useRouter } from 'vue-router'
+import { useStore } from '@/store'
 import { Close } from '@vicons/ionicons5'
 import {
   getCartData,
@@ -12,6 +13,7 @@ import Nav from '@/common/Nav.vue'
 import Footer from '@/common/Footer.vue'
 
 const router = useRouter()
+const store = useStore()
 
 const cartData = ref<Array<any>>([])
 const selectBoolean = ref<Boolean>(false)
@@ -44,9 +46,7 @@ const unSelAllCart = async () => {
   selectBoolean.value = false
   getCart()
 }
-const toOrder = () => {
-  router.push('/order')
-}
+
 const addRedNum = async (id: number, type: string) => {
   const arr = cartData.value.find((value) => value.id == id)
   type == 'add' ? arr.number++ : arr.number--
@@ -55,7 +55,6 @@ const addRedNum = async (id: number, type: string) => {
   await updateCart(id, { number })
   getCart()
 }
-
 const cartPrice = computed(() => {
   let totalprice: number = 0
   cartData.value.forEach((i) => {
@@ -65,7 +64,11 @@ const cartPrice = computed(() => {
   })
   return totalprice
 })
-
+const toOrder = () => {
+  store.updateCartData(cartData.value)
+  store.updateCartPrice(cartPrice.value)
+  router.push('/order')
+}
 onActivated(() => {
   getCart()
 })

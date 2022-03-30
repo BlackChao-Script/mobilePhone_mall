@@ -73,3 +73,12 @@ export const getOrderist = async (params: object) => {
 export const SubmitOrder = async (params: object) => {
   return request('order', params, 'POST')
 }
+//! 地址
+// 获取地址列表
+export const getAddress = async (params: object) => {
+  return request('/address', params, 'GET')
+}
+// 添加地址
+export const addAddress = async (params: object) => {
+  return request('/address/addtoaddress', params, 'POST')
+}
