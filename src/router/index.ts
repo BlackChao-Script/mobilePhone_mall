@@ -54,6 +54,13 @@ const routes: Array<RouteRecordRaw> = [
       keepAlive: true,
     },
   },
+  {
+    path: '/serchgoods/:keyWord',
+    component: () => import('@/views/serchGoods.vue'),
+    meta: {
+      keepAlive: false,
+    },
+  },
 ]
 // 工厂函数创建router实例
 const router = createRouter({

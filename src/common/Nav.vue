@@ -1,6 +1,21 @@
 <script setup lang='ts'>
+import { useRouter } from 'vue-router'
+import { useMessage } from 'naive-ui'
 import logo from '@/assets/img/logo.png'
 
+const router = useRouter()
+const message = useMessage()
+
+const serchKeyWord = ref<string>('')
+
+const clickSerchGoods = async () => {
+  if (window.sessionStorage.getItem('token') != null) {
+    router.push(`/serchgoods/${serchKeyWord.value}`)
+    serchKeyWord.value = ''
+  } else {
+    message.info('请先登录')
+  }
+}
 </script>
 
 <template>
@@ -15,8 +30,8 @@ import logo from '@/assets/img/logo.png'
       </div>
       <div class="box_input">
         <slot name="input">
-          <n-button type="primary" ghost>搜索</n-button>
-          <n-input :style="{ width: '40%' }" placeholder="搜索商品" />
+          <n-button type="primary" ghost @click="clickSerchGoods">搜索</n-button>
+          <n-input v-model:value="serchKeyWord" :style="{ width: '40%' }" placeholder="搜索商品" />
         </slot>
       </div>
     </div>

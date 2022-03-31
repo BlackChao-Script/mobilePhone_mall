@@ -1,13 +1,16 @@
 <script setup lang='ts'>
 import { StepsProps } from 'naive-ui'
 
-const current = ref<number | null>(2)
+const props = defineProps({
+  current: Number
+})
+
 const currentStatus = ref<StepsProps['status']>('process')
 
 </script>
 
 <template>
-  <n-steps :current="(current as number)" :status="currentStatus">
+  <n-steps :current="(props.current as number)" :status="currentStatus">
     <n-step title="购物车" />
     <n-step title="下单" />
     <n-step title="付款" />

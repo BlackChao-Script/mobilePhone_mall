@@ -23,6 +23,10 @@ export const GetGoods = async () => {
 export const getGoodsDet = (params: object) => {
   return request('goods/getgoodsDet', params, 'GET')
 }
+// 商品模糊搜索
+export const serchGoods = (params: object) => {
+  return request('goods/serch', params, 'GET')
+}
 
 //! 用户
 // 登录接口
@@ -72,6 +76,10 @@ export const getOrderist = async (params: object) => {
 // 提交订单
 export const SubmitOrder = async (params: object) => {
   return request('order', params, 'POST')
+}
+// 更新订单
+export const updateOrder = async (id: number, params: object) => {
+  return request(`order/${id}`, params, 'PATCH')
 }
 //! 地址
 // 获取地址列表

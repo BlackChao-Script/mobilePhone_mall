@@ -37,7 +37,9 @@ onMounted(() => {
   <n-message-provider>
     <Header />
   </n-message-provider>
-  <Nav />
+  <n-message-provider>
+    <Nav />
+  </n-message-provider>
   <div class="goodsdet_title">
     <div class="main">商品详细</div>
   </div>

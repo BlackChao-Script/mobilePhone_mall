@@ -5,6 +5,7 @@ import {
   getOrderist,
   addAddress,
   remAddress,
+  updateOrder
 } from '@/api/api'
 import { FormInst, FormRules, FormItemRule, useMessage } from 'naive-ui'
 
@@ -67,6 +68,9 @@ const getData = async (type: string) => {
         return
       case 'order':
         const orderRes = await getOrderist({})
+        orderRes.result.list.forEach((i: any) => {
+          i.createdAT = i.createdAT.split('T')[0]
+        })
         orderData.value = orderRes.result.list
         return
     }
@@ -94,6 +98,11 @@ const remAddressItem = async (id: number) => {
   await remAddress(id, {})
   message.success('删除成功')
   getData('address')
+}
+const ClickUpdateOrder = async (id: number) => {
+  const state: number = 4
+  await updateOrder(id, { state })
+  getData('order')
 }
 
 onActivated(() => {
@@ -135,7 +144,34 @@ defineExpose({
           </n-card>
         </n-tab-pane>
         <n-tab-pane name="我的订单" tab="我的订单">
-          <n-card v-for="item in orderData" :key="item.id" :title="item.order_number">卡片内容</n-card>
+          <n-card
+            v-if="orderData.length != 0"
+            style="cursor: pointer;"
+            v-for="item in orderData"
+            :key="item.id"
+            :title="item.order_number"
+          >
+            <div class="order_name">{{ item.goods_info }}</div>
+            <div class="order_time">
+              <span>下单时间：</span>
+              <span>{{ item.createdAT }}</span>
+            </div>
+            <div style="margin-top: 10px;">
+              <n-tag type="error" v-if="item.state == 0">未支付</n-tag>
+              <n-tag type="warning" v-else-if="item.state == 1">已支付</n-tag>
+              <n-tag type="success" v-else-if="item.state == 2">已发货</n-tag>
+              <n-tag type="info" v-else-if="item.state == 3">已签收</n-tag>
+              <n-tag v-else>已取消</n-tag>
+            </div>
+            <div class="order_price">
+              <span>总额：</span>
+              <span>{{ item.total }}</span>
+            </div>
+            <template #action>
+              <n-button color="red" @click="ClickUpdateOrder(item.id)">取消订单</n-button>
+            </template>
+          </n-card>
+          <n-empty v-else description="你什么也找不到"></n-empty>
         </n-tab-pane>
       </n-tabs>
     </n-drawer-content>
@@ -195,5 +231,19 @@ defineExpose({
   color: #fff;
   cursor: pointer;
   background-color: #d3e4cd;
+}
+.order_name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 13px;
+  width: 150px;
+}
+.order_time {
+  margin-top: 10px;
+  font-size: 13px;
+}
+.order_price {
+  margin-top: 10px;
 }
 </style>

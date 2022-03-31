@@ -1,27 +1,16 @@
 <script setup lang='ts'>
 import { useRouter } from 'vue-router'
 import { useMessage } from 'naive-ui'
-import { GetGoods } from '@/api/api'
-import { recommendDataType } from '@/types'
+
 
 const router = useRouter()
 const message = useMessage()
 
-const showNSpin = ref<Boolean>(true)
-const recommendData = reactive<recommendDataType>({
-  title: '为你推荐',
-  dataMessage: {
-    name: '为你推荐',
-    hoverData: ['mobilePhone商城', '好物也不贵']
-  },
-  list: []
+const { recommendData = {} } = defineProps({
+  recommendData: Object,
+  showNSpin: Boolean
 })
 
-const getRecommendData = async () => {
-  const res = await GetGoods()
-  recommendData.list = res.result.list
-  showNSpin.value = false
-}
 const toGoodsDet = (id: number) => {
   if (window.sessionStorage.getItem('token') != null) {
     router.push(`/goodsdet/${id}`)
@@ -29,38 +18,34 @@ const toGoodsDet = (id: number) => {
     message.info('请先登录')
   }
 }
-
-onMounted(() => {
-  getRecommendData()
-})
-
-
 </script>
 <template>
-  <div class="goodList">
-    <div class="goodList_title">{{ recommendData.title }}</div>
-    <n-spin v-if="showNSpin" class="centent" size="large" />
-    <div class="goodList_item" v-else>
-      <n-card
-        class="item_box"
-        :bordered="false"
-        v-for="item in recommendData.list"
-        :key="item.id"
-        @click="toGoodsDet(item.id)"
-      >
-        <template #cover>
-          <img :src="item.goods_img" />
-        </template>
-        <div class="box_content">
-          <div class="box_name">{{ item.goods_name }}</div>
-          <div class="box_price">{{ item.goods_price }}￥</div>
-          <div class="box_text">{{ recommendData.dataMessage.name }}</div>
-        </div>
-        <div class="box_hover" v-if="recommendData.dataMessage.hoverData">
-          <p>{{ recommendData.dataMessage.hoverData[0] }}</p>
-          <p>{{ recommendData.dataMessage.hoverData[1] }}</p>
-        </div>
-      </n-card>
+  <div class="main">
+    <div class="goodList">
+      <div class="goodList_title">{{ recommendData.title }}</div>
+      <n-spin v-if="showNSpin" class="centent" size="large" />
+      <div class="goodList_item" v-else>
+        <n-card
+          class="item_box"
+          :bordered="false"
+          v-for="item in recommendData.list"
+          :key="item.id"
+          @click="toGoodsDet(item.id)"
+        >
+          <template #cover>
+            <img :src="item.goods_img" />
+          </template>
+          <div class="box_content">
+            <div class="box_name">{{ item.goods_name }}</div>
+            <div class="box_price">{{ item.goods_price }}￥</div>
+            <div class="box_text">{{ recommendData.dataMessage.name }}</div>
+          </div>
+          <div class="box_hover" v-if="recommendData.dataMessage.hoverData">
+            <p>{{ recommendData.dataMessage.hoverData[0] }}</p>
+            <p>{{ recommendData.dataMessage.hoverData[1] }}</p>
+          </div>
+        </n-card>
+      </div>
     </div>
   </div>
 </template>

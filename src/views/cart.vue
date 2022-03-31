@@ -49,7 +49,6 @@ const addRedNum = async (id: number, type: string) => {
   const arr = cartData.value.find((value) => value.id == id)
   type == 'add' ? arr.number++ : arr.number--
   let { number } = arr
-  console.log()
   await updateCart(id, { number })
   getCart()
 }
@@ -72,11 +71,13 @@ onActivated(() => {
 
 <template>
   <div class="cart_nav">
-    <Nav>
-      <template v-slot:input>
-        <div class="nav_title">温馨提示：产品是否购买成功，以最终下单为准哦，请尽快结算</div>
-      </template>
-    </Nav>
+    <n-message-provider>
+      <Nav>
+        <template v-slot:input>
+          <div class="nav_title">温馨提示：产品是否购买成功，以最终下单为准哦，请尽快结算</div>
+        </template>
+      </Nav>
+    </n-message-provider>
   </div>
   <div class="main">
     <div class="cart_box">

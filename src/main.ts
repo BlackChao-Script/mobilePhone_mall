@@ -32,6 +32,7 @@ import {
   NForm,
   NFormItem,
   NSelect,
+  NTag,
 } from 'naive-ui'
 
 import '@/style/base.css'
@@ -66,6 +67,7 @@ const naive = create({
     NForm,
     NFormItem,
     NSelect,
+    NTag,
   ],
 })
 
