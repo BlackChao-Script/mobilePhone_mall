@@ -22,7 +22,7 @@ const clickSerchGoods = async () => {
   <div class="nav">
     <div class="nav_box">
       <div class="box_img">
-        <a href="/index">
+        <a @click="() => { router.push('/index') }">
           <n-image height="80" width="130" preview-disabled :src="logo" />
           <slot name="title"></slot>
           <div>mobilePhone商城</div>

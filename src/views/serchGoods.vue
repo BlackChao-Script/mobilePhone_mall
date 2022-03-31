@@ -22,7 +22,6 @@ const getserchGoods = async () => {
   const res = await serchGoods({ keyWord })
   recommendData.list = res.result
   showNSpin.value = false
-  console.log(recommendData.list)
 }
 
 onMounted(() => {
@@ -35,7 +34,9 @@ onMounted(() => {
     <Header />
   </n-message-provider>
   <n-message-provider>
-    <Nav />
+    <Nav>
+      <template v-slot:input><div></div></template>
+    </Nav>
   </n-message-provider>
   <n-message-provider>
     <GoodList :recommendData="recommendData" :showNSpin="showNSpin" />

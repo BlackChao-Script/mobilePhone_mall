@@ -71,11 +71,13 @@ onActivated(() => {
 
 <template>
   <div class="order_nav">
-    <Nav>
-      <template v-slot:input>
-        <div class="nav_title">温馨提示：产品是否购买成功，以最终下单为准哦，请尽快结算</div>
-      </template>
-    </Nav>
+    <n-message-provider>
+      <Nav>
+        <template v-slot:input>
+          <div class="nav_title">温馨提示：产品是否购买成功，以最终下单为准哦，请尽快结算</div>
+        </template>
+      </Nav>
+    </n-message-provider>
   </div>
   <div class="order_box main">
     <div class="box_title">填写并核对订单信息</div>
